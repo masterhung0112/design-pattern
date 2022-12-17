@@ -1,0 +1,3 @@
+- Server run grpc
+- Client can call the server API via gRPC
+- Client can call the server API via HTTP
