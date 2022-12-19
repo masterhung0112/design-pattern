@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package hk.v1;
 
+// import "google/protobuf/timestamp.proto";
+
 import "google/type/datetime.proto";
 
 option go_package = "github.com/hk/grpc-http/v1";
@@ -19,6 +21,7 @@ message Pet {
   string pet_id = 2;
   string name = 3;
   google.type.DateTime created_at = 4;
+  // google.protobuf.Timestamp p  = 5;
 }
 
 message GetPetRequest {

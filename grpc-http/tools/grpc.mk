@@ -5,6 +5,8 @@ TOOLS_MOD := tools/go.mod
 BUF := $(TOOLS_BIN_DIR)/buf
 
 GEN_DIR := api/genpb
+GEN_DIR_GO := $(GEN_DIR)/go
+GEN_DIR_DART := $(GEN_DIR)/dart
 JSONSCHEMA_DIR := schema/jsonschema
 OPENAPI_DIR := schema/openapiv2
 PROTOC_GEN_GO := $(TOOLS_BIN_DIR)/protoc-gen-go
@@ -22,13 +24,13 @@ define BUF_GEN_TEMPLATE
   "plugins": [\
     {\
       "name": "go",\
-      "out": "$(GEN_DIR)",\
+      "out": "$(GEN_DIR_GO)",\
       "opt": "paths=source_relative",\
       "path": "$(PROTOC_GEN_GO)"\
     },\
     {\
       "name": "vtproto",\
-      "out": "$(GEN_DIR)",\
+      "out": "$(GEN_DIR_GO)",\
       "opt": [\
 	    "paths=source_relative",\
 	  	"features=marshal+unmarshal+size"\
@@ -41,25 +43,25 @@ define BUF_GEN_TEMPLATE
         "paths=source_relative",\
         "lang=go"\
       ],\
-      "out": "$(GEN_DIR)",\
+      "out": "$(GEN_DIR_GO)",\
       "path": "$(PROTOC_GEN_VALIDATE)"\
     },\
     {\
       "name": "go-grpc",\
       "opt": "paths=source_relative",\
-      "out": "$(GEN_DIR)",\
+      "out": "$(GEN_DIR_GO)",\
       "path": "$(PROTOC_GEN_GO_GRPC)"\
     },\
     {\
       "name": "go-hashpb",\
       "opt": "paths=source_relative",\
-      "out": "$(GEN_DIR)",\
+      "out": "$(GEN_DIR_GO)",\
       "path": "$(PROTOC_GEN_GO_HASHPB)"\
     },\
     {\
       "name": "grpc-gateway",\
       "opt": "paths=source_relative",\
-      "out": "$(GEN_DIR)",\
+      "out": "$(GEN_DIR_GO)",\
       "path": "$(PROTOC_GEN_GRPC_GATEWAY)"\
     },\
     {\
@@ -70,6 +72,12 @@ define BUF_GEN_TEMPLATE
   ]\
 }
 endef
+
+    # {\
+    #   "name": "dart",\
+    #   "out": "$(GEN_DIR_DART)",\
+    #   "path": "/home/hung/.pub-cache/bin/protoc-gen-dart"\
+    # },\
 
 $(TOOLS_BIN_DIR):
 	@ mkdir -p $(TOOLS_BIN_DIR)
@@ -105,5 +113,11 @@ $(PROTOC_GEN_VALIDATE): $(TOOLS_BIN_DIR)
 $(PROTOC_GEN_GO_VTPROTO): $(TOOLS_BIN_DIR)
 	@ GOBIN=$(TOOLS_BIN_DIR) go install -modfile=$(TOOLS_MOD) github.com/planetscale/vtprotobuf/cmd/protoc-gen-go-vtproto
 
+# install-dart:
+  # dart pub global activate protoc_plugin
+dart-generate:
+	mkdir -p api/genpb/dart
+	protoc --experimental_allow_proto3_optional -I=./proto  --proto_path=../googleapis --proto_path=../protobuf/src --dart_out=grpc:api/genpb/dart/ proto/hk/v1/petstore.proto ../googleapis/google/type/*.proto ../protobuf/src/google/protobuf/*.proto
+
 .PHONY: proto-gen-deps
-proto-gen-deps: $(BUF) $(PROTOC_GEN_GO) $(PROTOC_GEN_GO_VTPROTO) $(PROTOC_GEN_GO_GRPC) $(PROTOC_GEN_GRPC_GATEWAY) $(PROTOC_GEN_OPENAPIV2) $(PROTOC_GEN_VALIDATE) $(PROTOC_GEN_GO_HASHPB) 
+proto-gen-deps: $(BUF) $(PROTOC_GEN_GO) $(PROTOC_GEN_GO_VTPROTO) $(PROTOC_GEN_GO_GRPC) $(PROTOC_GEN_GRPC_GATEWAY) $(PROTOC_GEN_OPENAPIV2) $(PROTOC_GEN_VALIDATE) $(PROTOC_GEN_GO_HASHPB) dart-generate
