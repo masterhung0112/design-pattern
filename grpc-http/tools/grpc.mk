@@ -117,11 +117,11 @@ $(PROTOC_GEN_GO_VTPROTO): $(TOOLS_BIN_DIR)
 # install-dart:
   # dart pub global activate protoc_plugin
 dart-generate:
-	mkdir -p $(GEN_DIR_DART)
-	protoc --plugin="protoc-gen-dart=$(PROTOC_GEN_DART)" --experimental_allow_proto3_optional -I=./proto  --proto_path=../googleapis --proto_path=../protobuf/src --dart_out=grpc:$(GEN_DIR_DART) proto/hk/v1/petstore.proto ../googleapis/google/type/*.proto ../protobuf/src/google/protobuf/*.proto
+	@ mkdir -p $(GEN_DIR_DART)
+	@ protoc --plugin="protoc-gen-dart=$(PROTOC_GEN_DART)" --experimental_allow_proto3_optional -I=./proto  --proto_path=../googleapis --proto_path=../protobuf/src --dart_out=grpc:$(GEN_DIR_DART) proto/hk/v1/petstore.proto ../googleapis/google/type/*.proto ../protobuf/src/google/protobuf/*.proto
 
 go-gen: $(PROTOC_GEN_GO) $(PROTOC_GEN_GO_VTPROTO) $(PROTOC_GEN_GO_GRPC) $(PROTOC_GEN_GRPC_GATEWAY) $(PROTOC_GEN_OPENAPIV2) $(PROTOC_GEN_VALIDATE) $(PROTOC_GEN_GO_HASHPB) 
 dart-gen: dart-generate
 
-.PHONY: proto-gen-deps
+.PHONY: proto-gen-deps dart-gen go-gen
 proto-gen-deps: $(BUF) go-gen dart-gen

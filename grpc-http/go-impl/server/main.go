@@ -8,7 +8,7 @@ import (
 
 	// This import path is based on the name declaration in the go.mod,
 	// and the gen/proto/go output location in the buf.gen.yaml.
-	petv1 "grpc-http/api/genpb/go/hk/v1"
+	petv1 "grpc-http/gen/proto/go/hk/v1"
 
 	"google.golang.org/grpc"
 )

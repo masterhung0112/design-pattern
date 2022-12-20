@@ -1,5 +1,5 @@
 import 'package:grpc/grpc.dart';
-import '../api/genpb/dart/hk/v1/petstore.pbgrpc.dart';
+import '../gen/proto/dart/hk/v1/petstore.pbgrpc.dart';
 
 Future<void> main(List<String> args) async {
   final channel = ClientChannel(
