@@ -4,7 +4,7 @@ TOOLS_MOD := tools/go.mod
 
 BUF := $(TOOLS_BIN_DIR)/buf
 
-GEN_DIR := api/genpb
+GEN_DIR := gen/proto
 GEN_DIR_GO := $(GEN_DIR)/go
 GEN_DIR_DART := $(GEN_DIR)/dart
 JSONSCHEMA_DIR := schema/jsonschema
@@ -17,6 +17,7 @@ PROTOC_GEN_GRPC_GATEWAY := $(TOOLS_BIN_DIR)/protoc-gen-grpc-gateway
 PROTOC_GEN_JSONSCHEMA := $(TOOLS_BIN_DIR)/protoc-gen-jsonschema
 PROTOC_GEN_OPENAPIV2 := $(TOOLS_BIN_DIR)/protoc-gen-openapiv2
 PROTOC_GEN_VALIDATE := $(TOOLS_BIN_DIR)/protoc-gen-validate
+PROTOC_GEN_DART :=  $(HOME)/.pub-cache/bin/protoc-gen-dart
 
 define BUF_GEN_TEMPLATE
 {\
@@ -116,8 +117,11 @@ $(PROTOC_GEN_GO_VTPROTO): $(TOOLS_BIN_DIR)
 # install-dart:
   # dart pub global activate protoc_plugin
 dart-generate:
-	mkdir -p api/genpb/dart
-	protoc --experimental_allow_proto3_optional -I=./proto  --proto_path=../googleapis --proto_path=../protobuf/src --dart_out=grpc:api/genpb/dart/ proto/hk/v1/petstore.proto ../googleapis/google/type/*.proto ../protobuf/src/google/protobuf/*.proto
+	mkdir -p $(GEN_DIR_DART)
+	protoc --plugin="protoc-gen-dart=$(PROTOC_GEN_DART)" --experimental_allow_proto3_optional -I=./proto  --proto_path=../googleapis --proto_path=../protobuf/src --dart_out=grpc:$(GEN_DIR_DART) proto/hk/v1/petstore.proto ../googleapis/google/type/*.proto ../protobuf/src/google/protobuf/*.proto
+
+go-gen: $(PROTOC_GEN_GO) $(PROTOC_GEN_GO_VTPROTO) $(PROTOC_GEN_GO_GRPC) $(PROTOC_GEN_GRPC_GATEWAY) $(PROTOC_GEN_OPENAPIV2) $(PROTOC_GEN_VALIDATE) $(PROTOC_GEN_GO_HASHPB) 
+dart-gen: dart-generate
 
 .PHONY: proto-gen-deps
-proto-gen-deps: $(BUF) $(PROTOC_GEN_GO) $(PROTOC_GEN_GO_VTPROTO) $(PROTOC_GEN_GO_GRPC) $(PROTOC_GEN_GRPC_GATEWAY) $(PROTOC_GEN_OPENAPIV2) $(PROTOC_GEN_VALIDATE) $(PROTOC_GEN_GO_HASHPB) dart-generate
+proto-gen-deps: $(BUF) go-gen dart-gen

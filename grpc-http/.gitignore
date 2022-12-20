@@ -2,3 +2,4 @@ schema/
 api/
 proto/protobuf/
 protobuf/
+gen/
