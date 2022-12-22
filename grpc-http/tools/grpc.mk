@@ -7,6 +7,7 @@ BUF := $(TOOLS_BIN_DIR)/buf
 GEN_DIR := gen/proto
 GEN_DIR_GO := $(GEN_DIR)/go
 GEN_DIR_DART := $(GEN_DIR)/dart
+GEN_DIR_PYTHON := $(GEN_DIR)/python
 JSONSCHEMA_DIR := schema/jsonschema
 OPENAPI_DIR := schema/openapiv2
 PROTOC_GEN_GO := $(TOOLS_BIN_DIR)/protoc-gen-go
@@ -18,6 +19,7 @@ PROTOC_GEN_JSONSCHEMA := $(TOOLS_BIN_DIR)/protoc-gen-jsonschema
 PROTOC_GEN_OPENAPIV2 := $(TOOLS_BIN_DIR)/protoc-gen-openapiv2
 PROTOC_GEN_VALIDATE := $(TOOLS_BIN_DIR)/protoc-gen-validate
 PROTOC_GEN_DART :=  $(HOME)/.pub-cache/bin/protoc-gen-dart
+PROTOC_GEN_GRPC_PYTHON := grpc-env/bin/protoc-gen-grpclib_python
 
 define BUF_GEN_TEMPLATE
 {\
@@ -123,5 +125,18 @@ dart-generate:
 go-gen: $(PROTOC_GEN_GO) $(PROTOC_GEN_GO_VTPROTO) $(PROTOC_GEN_GO_GRPC) $(PROTOC_GEN_GRPC_GATEWAY) $(PROTOC_GEN_OPENAPIV2) $(PROTOC_GEN_VALIDATE) $(PROTOC_GEN_GO_HASHPB) 
 dart-gen: dart-generate
 
+python-gen:
+	@ mkdir -p $(GEN_DIR_PYTHON)
+	python -m venv grpc-env
+	. grpc-env/bin/activate; \
+  python -m pip install grpcio grpclib protobuf;\
+  protoc --plugin="protoc-gen-grpc_python=$(PROTOC_GEN_GRPC_PYTHON)" -I=./proto  --proto_path=../googleapis --proto_path=../protobuf/src --python_out=$(GEN_DIR_PYTHON) --grpc_python_out=$(GEN_DIR_PYTHON) proto/hk/v1/petstore.proto
+
 .PHONY: proto-gen-deps dart-gen go-gen
-proto-gen-deps: $(BUF) go-gen dart-gen
+proto-gen-deps: $(BUF) go-gen dart-gen python-gen
+grpc-http-clean:
+	rm -rf ./grpc-env
+	rm -rf ./gen
+	rm -rf ./api
+	rm -rf ./.dart_tool
+	rm -rf ./schema
