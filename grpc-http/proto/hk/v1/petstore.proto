@@ -7,7 +7,6 @@ package hk.v1;
 import "google/type/datetime.proto";
 
 option go_package = "github.com/hk/grpc-http/v1";
-
 enum PetType {
   PET_TYPE_UNSPECIFIED = 0;
   PET_TYPE_CAT = 1;
