@@ -1,0 +1,15 @@
+{
+  "name": "custom-elements",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "wireit",
+    "start": "wireit"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "wireit": "^0.9.3"
+  }
+}
