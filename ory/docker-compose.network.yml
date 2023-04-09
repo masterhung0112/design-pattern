@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  hello:
+    networks:
+      ipvlan_1:
+        ipv4_address: 192.168.10.30
+  world:
+    networks:
+      ipvlan_1:
+        ipv4_address: 192.168.10.31
+  
+  kong-migrations:
+    networks:
+      - ipvlan_1
+
+  kong:
+    networks:
+      ipvlan_1:
+        ipv4_address: 192.168.10.32
+ 
+networks:
+  ipvlan_1:
+    external:
+      name: ipvlan_l3_1
+     
