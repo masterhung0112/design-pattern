@@ -12,11 +12,11 @@ module.exports = {
         filename: "main.js"
     },
     devServer: {
-        port: 3004,
+        port: 3001,
         liveReload: true,
         historyApiFallback: true
     },
-    name: "shell",
+    name: "left-nav",
     module: {
         rules: [
           {
@@ -39,13 +39,12 @@ module.exports = {
         }),
         new MiniCssExtractPlugin(),
         new ModuleFederationPlugin({
-            name: "shell",
+            name: "leftNavigation",
             filename: "remoteEntry.js",
-            remotes: {
-                "TopNav": "topNavigation@http://localhost:3002/remoteEntry.js",
-                "LeftNav": "leftNavigation@http://localhost:3001/remoteEntry.js"
+            remotes: {},
+            exposes: {
+                "./LeftNav": "./src/App.jsx"
             },
-            exposes: {},
             shared: {
                 "react": {
                     singleton: true,
