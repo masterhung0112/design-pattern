@@ -3,6 +3,7 @@ import "./App.scss";
 
 const TopNavComponent = React.lazy(() => import("TopNav/TopNav"));
 const LeftNavComponent = React.lazy(() => import("LeftNav/LeftNav"));
+const ItemDetailsComponent = React.lazy(() =>import("ItemDetails/ItemDetails"));
 
 export default function () {
     return (
@@ -11,6 +12,7 @@ export default function () {
                 <TopNavComponent />
                 <div className="flex">
                     <LeftNavComponent />
+                    <ItemDetailsComponent />
                 </div>
             </section>
         </Suspense>
