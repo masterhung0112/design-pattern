@@ -6,20 +6,20 @@ import {
   BrandingWatermark,
   Speed,
 } from "@mui/icons-material";
-import "./App.scss";
+import "./ItemDetails1.scss";
 
 const sampleItemDetails = [
-  {
-    name: "Mainstays Comfort Complete Bed Pillow, Standard/Queen",
-    price: "20.24",
-    rating: "3",
-    label: "Save with Plus",
-    tags: ["Pickup", "Delivery", "1 day-shipping"],
-    img: "https://image.shutterstock.com/image-photo/photo-white-pillow-beautiful-threeleaf-600w-2069071766.jpg",
-    isSponsored: false,
-    isAdd: true,
-    isOption: false,
-  },
+  // {
+  //   name: "Mainstays Comfort Complete Bed Pillow, Standard/Queen",
+  //   price: "20.24",
+  //   rating: "3",
+  //   label: "Save with Plus",
+  //   tags: ["Pickup", "Delivery", "1 day-shipping"],
+  //   img: "https://image.shutterstock.com/image-photo/photo-white-pillow-beautiful-threeleaf-600w-2069071766.jpg",
+  //   isSponsored: false,
+  //   isAdd: true,
+  //   isOption: false,
+  // },
   {
     name: "Supersoft Twin XL Bed Blanket in Black, Sized for College Dorm Beds, Plush and Warm, Solid Jet Black, Easy Care, by OCM",
     price: "10.45",
@@ -110,7 +110,8 @@ const sampleItemDetails = [
   },
 ];
 
-export default function () {
+type ItemDetailsProps = {};
+const ItemDetails: React.FC<ItemDetailsProps> = () => {
   return (
     <div className="item-details-container">
       <Fab className="mr-10" variant="extended">
@@ -160,3 +161,5 @@ export default function () {
     </div>
   );
 }
+
+export default ItemDetails;

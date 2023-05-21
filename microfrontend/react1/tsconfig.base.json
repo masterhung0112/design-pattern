@@ -3,8 +3,9 @@
     "compilerOptions": {
         "rootDir": ".",
         "sourceMap": true,
+        "strict": true,
         "esModuleInterop": true,
-        "declaration": false,
+        // "declaration": false,
         "module": "esnext",
         "lib": ["es2021", "dom"],
         "skipLibCheck": true,
@@ -12,7 +13,9 @@
         "baseUrl": ".",
         "paths": {
             "*": ["./@mf-types/*"]
-        }
+        },
+        "jsx": "react-jsx",
     },
+    "include": ["src/**/*", "src/**/*.d.ts"],
     "exclude": ["node_modules", "tmp"]
 }

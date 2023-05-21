@@ -1,10 +1,11 @@
-import React, { Suspense} from "react";
+import React, { Suspense } from "react";
 import "./App.scss";
+import TopNav from "../@mf-types/TopNav/TopNav"
+import LeftNav from "../@mf-types/LeftNav/LeftNav"
 
-const TopNavComponent = React.lazy(() => import("TopNav/TopNav"));
-const LeftNavComponent = React.lazy(() => import("LeftNav/LeftNav"));
+const TopNavComponent = React.lazy(() => import("TopNav/TopNav")) as unknown as typeof TopNav;
+const LeftNavComponent = React.lazy(() => import("LeftNav/LeftNav")) as unknown as typeof LeftNav;
 const ItemDetailsComponent = React.lazy(() =>import("ItemDetails/ItemDetails"));
-// import {} from "@mf-types/"
 
 export default function () {
     return (

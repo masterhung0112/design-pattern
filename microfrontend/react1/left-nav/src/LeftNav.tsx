@@ -12,9 +12,11 @@ import {
   ButtonGroup,
   Button,
 } from "@mui/material";
-import "./App.scss";
+import "./LeftNav1.scss";
 
-export default function () {
+export type LeftNavProps = {};
+
+const LeftNav: React.FC<LeftNavProps> = () => {
   return (
     <div className="left-nav-container">
       <h1 className="header"><Cake /> All Filters</h1>
@@ -203,3 +205,5 @@ export default function () {
     </div>
   );
 }
+
+export default LeftNav;

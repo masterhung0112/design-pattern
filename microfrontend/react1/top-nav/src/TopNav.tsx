@@ -1,6 +1,6 @@
 import React from "react";
 import { Autocomplete, TextField } from "@mui/material";
-import "./App.scss";
+import "./TopNav1.scss";
 import {
   Bungalow,
   AcUnit,
@@ -9,7 +9,9 @@ import {
   AccountBox,
 } from "@mui/icons-material";
 
-export default function () {
+type TopNavProps = {};
+
+const TopNav: React.FC<TopNavProps> = () => {
   const sampleData = ["Phone", "Clothes", "Test Data"];
 
   return (
@@ -47,3 +49,5 @@ export default function () {
     </div>
   );
 }
+
+export default TopNav;
