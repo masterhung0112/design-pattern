@@ -46,6 +46,11 @@ module.exports = {
                 "./LeftNav": "./src/App.jsx"
             },
             shared: {
+                ...dependencies,
+                "@emotion/memoize": {},
+                "@emotion/cache": {
+                    requiredVersion: ">=11.11.0"
+                },
                 "react": {
                     singleton: true,
                     requiredVersion: dependencies.react

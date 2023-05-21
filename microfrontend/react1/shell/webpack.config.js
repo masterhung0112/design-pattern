@@ -5,18 +5,17 @@ const path = require("path");
 const dependencies = require("./package.json").dependencies;
 const { FederatedTypesPlugin } = require('@module-federation/typescript');
 
-const moduleFederationPlugin = {
-    name: "topNavigation",
+const moduleFederationPluginOptions = {
+    name: "shell",
     filename: "remoteEntry.js",
-    remotes: {},
-    exposes: {
-        "./TopNav": "./src/App.jsx"
+    remotes: {
+        "LeftNav": "leftNavigation@http://localhost:3001/remoteEntry.js",
+        "TopNav": "topNavigation@http://localhost:3002/remoteEntry.js",
+        "ItemDetails": "itemDetails@http://localhost:3003/remoteEntry.js"
     },
+    exposes: {},
     shared: {
         ...dependencies,
-        "@emotion/cache": {
-            requiredVersion: ">=11.11.0"
-        },
         "react": {
             singleton: true,
             requiredVersion: dependencies.react
@@ -44,11 +43,11 @@ module.exports = {
         filename: "main.js"
     },
     devServer: {
-        port: 3002,
+        port: 3004,
         liveReload: true,
         historyApiFallback: true
     },
-    name: "top-nav",
+    name: "shell",
     module: {
         rules: [
           {
@@ -70,8 +69,9 @@ module.exports = {
             filename: "index.html"
         }),
         new MiniCssExtractPlugin(),
+        // new ModuleFederationPlugin(moduleFederationPluginOptions),
         new FederatedTypesPlugin({
-            federationConfig: moduleFederationPlugin
+            federationConfig: moduleFederationPluginOptions
         })
     ]
 }

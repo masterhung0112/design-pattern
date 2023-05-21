@@ -46,6 +46,7 @@ module.exports = {
                 "./ItemDetails": "./src/App.jsx"
             },
             shared: {
+                ...dependencies,
                 "react": {
                     singleton: true,
                     requiredVersion: dependencies.react
