@@ -432,6 +432,14 @@
     {
       "packageName": "my-toolchain",
       "projectFolder": "tools/my-toolchain"
-    }
+    },
+    {
+      "packageName": "@ts-code-demo/env",
+      "projectFolder": "ts-code-demo/env"
+    }//,
+    // {
+    //   "packageName": "components",
+    //   "projectFolder": "libraries/components"
+    // }
   ]
 }
