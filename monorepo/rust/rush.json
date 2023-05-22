@@ -429,5 +429,9 @@
     //   "reviewCategory": "tools",
     //   "tags": [ "tools" ]
     // }
+    {
+      "packageName": "my-toolchain",
+      "projectFolder": "tools/my-toolchain"
+    }
   ]
 }
