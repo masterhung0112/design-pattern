@@ -14,7 +14,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "hklib2": "workspace:*",
-    "@hungknow/lib1": "workspace:*"
+    "@hungknow/lib1": "workspace:*",
+    "hklib2": "workspace:^1.0.2"
   }
 }

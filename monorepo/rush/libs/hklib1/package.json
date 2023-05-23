@@ -1,11 +1,14 @@
 {
   "name": "@hungknow/lib1",
-  "version": "1.0.1",
-  "main": "src/index.js",
-  "description": "",
+  "version": "1.0.2",
+  "main": "dist/main.js",
   "scripts": {
-    "build": "echo \"done\";"
+    "build": "webpack"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.83.1",
+    "webpack-cli": "^5.1.1"
+  }
 }
