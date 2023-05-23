@@ -434,13 +434,24 @@
       "projectFolder": "tools/my-toolchain"
     },
     {
-      "packageName": "hklib1",
-      "projectFolder": "libs/lib1"
+      "packageName": "@hungknow/lib1",
+      "projectFolder": "libs/hklib1",
+      "reviewCategory": "libraries"
+    },
+    {
+      "packageName": "hklib2",
+      "projectFolder": "apps/hklib2",
+      "reviewCategory": "libraries"
     },
     {
       "packageName": "app1",
       "projectFolder": "apps/app1"
+    },
+    {
+      "packageName": "app2",
+      "projectFolder": "apps/app2"
     }
+    
     // {
     //   "packageName": "@ts-code-demo/env",
     //   "projectFolder": "ts-code-demo/env"

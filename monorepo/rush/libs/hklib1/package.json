@@ -1,0 +1,11 @@
+{
+  "name": "@hungknow/lib1",
+  "version": "1.0.1",
+  "main": "src/index.js",
+  "description": "",
+  "scripts": {
+    "build": "echo \"done\";"
+  },
+  "author": "",
+  "license": "ISC"
+}
