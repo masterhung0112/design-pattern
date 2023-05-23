@@ -434,12 +434,16 @@
       "projectFolder": "tools/my-toolchain"
     },
     {
-      "packageName": "@ts-code-demo/env",
-      "projectFolder": "ts-code-demo/env"
-    }//,
+      "packageName": "hklib1",
+      "projectFolder": "libs/lib1"
+    },
+    {
+      "packageName": "app1",
+      "projectFolder": "apps/app1"
+    }
     // {
-    //   "packageName": "components",
-    //   "projectFolder": "libraries/components"
-    // }
+    //   "packageName": "@ts-code-demo/env",
+    //   "projectFolder": "ts-code-demo/env"
+    // },
   ]
 }
