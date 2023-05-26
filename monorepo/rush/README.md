@@ -11,3 +11,9 @@ rush update
 rust install
 rust build
 ```
+
+- [x] Create app + dependency lib
+- [x] Create independent lib
+- [ ] Check "rush change"
+- [ ] Check "rush test"
+- [ ] Check "rush deploy" and build that deployed app in the separate folder

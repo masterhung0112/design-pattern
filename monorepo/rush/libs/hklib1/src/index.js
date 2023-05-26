@@ -1,5 +1,5 @@
 function add(a, b) {
-    return a + b + 8;
+    return a + b;
 }
 
 export { add };
