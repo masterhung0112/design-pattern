@@ -7,6 +7,9 @@
     "build": "tsc index.ts --outDir dist"
   },
   "author": "",
+  "dependencies": {
+    "is-even": "^1.0.0"
+  },
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.2.5"

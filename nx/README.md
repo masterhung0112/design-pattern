@@ -7,6 +7,9 @@
     - [ ] The target is written in package.json
     - [ ] The target is written in project.json
 - [ ] Cache the test result
+- [ ] Run test on the affected projects
+- [ ] Understand task and pipeline in Nx
+- [ ] MFE Host and Remote by Nx
 
 Create the project
 - `npm install --global nx@latest` to install nx in global scope
@@ -24,3 +27,16 @@ Create new package
 - generate library, run `npx nx generate @nrwl/js:library lib1 --publishable --importPath lib1`
 - generate app, run `npx nx g @nrwl/node:app products-cli`
 **Note**: Not support on Mac, only support on linux
+
+Create MFE host and remote application
+- `nx g @nx/react:host shell --remotes=shop,cart`
+- `nx g @nx/react:remote about --host=shell`
+- `nx serve shell --devRemotes=cart,shop`
+
+## Add jest in the existing project
+
+- `npm install --save-dev @nx/jest`
+- Run command to add jest in the target project `nx g @nx/jest:jest-project --project=<project-name>`
+
+# Cache
+The default cache of output is stored in "node_modules/.cache/nx"

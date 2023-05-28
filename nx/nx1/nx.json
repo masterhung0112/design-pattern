@@ -3,16 +3,29 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "YmQ2M2RlMGYtZTBjYS00MGQ2LWI4NGMtYTBjZjUyZDVkOWFifHJlYWQtd3JpdGU="
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
     }
   },
   "extends": "nx/presets/npm.json",
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "namedInputs": {
+    "sharedGlobals": ["{workspaceRoot}/tsconfig.base.json"],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "production": ["default", "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)", "sharedGlobals"]
+  },
   "targetDefaults": {
+    "build": {
+      "inputs": ["production", "^production"],
+      "dependsOn": ["^build"],
+      "outputs": [
+        "{projectRoot}/dist",
+        "{projectRoot}/build",
+        "{projectRoot}/public/build"
+      ]
+    },
     "test": {
-      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
     },
     "lint": {
       "inputs": [
