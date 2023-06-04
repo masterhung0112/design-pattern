@@ -29,6 +29,7 @@ Create new package
 **Note**: Not support on Mac, only support on linux
 
 Create MFE host and remote application
+Reference: https://nx.dev/recipes/module-federation/dynamic-module-federation-with-angular
 - `nx g @nx/react:host shell --remotes=shop,cart`
 - `nx g @nx/react:remote about --host=shell`
 - `nx serve shell --devRemotes=cart,shop`
