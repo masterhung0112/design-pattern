@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:math' as math;
 import 'dart:typed_data';
 
@@ -128,6 +129,8 @@ Future<void> _runTests() async {
   final ByteData largeBufferBytes =
       const StandardMessageCodec().encodeMessage(largeBuffer)!;
   final ByteData oneMB = ByteData(1024 * 1024);
+  final List<double> oneMbOfInteger =
+      List.filled((1024 * 1024 / 8).ceil(), 0x7FFFFFFF);
 
   const BasicMessageChannel<Object?> resetChannel =
       BasicMessageChannel<Object?>("hungknow.reset", StandardMessageCodec());
@@ -160,6 +163,16 @@ Future<void> _runTests() async {
   );
 
   resetChannel.send(true);
+  await _runBasicStandardLarge(basicStandard, oneMbOfInteger, 1); // Warmup.
+  printer.addResult(
+    description: 'BasicMessageChannel/StandardMessageCodec/Flutter->Host/1MB',
+    value: await _runBasicStandardLarge(
+        basicStandard, oneMbOfInteger, numMessages),
+    unit: 'µs',
+    name: 'platform_channel_basic_standard_2host_1MB',
+  );
+
+  resetChannel.send(true);
   await _runBasicBinary(basicBinary, largeBufferBytes, 1); // Warmup.
   printer.addResult(
     description: 'BasicMessageChannel/BinaryCodec/Flutter->Host/Large',
@@ -168,12 +181,23 @@ Future<void> _runTests() async {
     name: 'platform_channel_basic_binary_2host_large',
   );
 
+  resetChannel.send(true);
   await _runBasicBinaryByEncode(basicBinary, largeBuffer, 1); // Warmup.
   printer.addResult(
     description: 'BasicMessageChannel/BinaryCodec/Flutter->Host/LargeEncode',
     value: await _runBasicBinaryByEncode(basicBinary, largeBuffer, numMessages),
     unit: 'µs',
     name: 'platform_channel_basic_binary_2host_largeencode',
+  );
+
+  resetChannel.send(true);
+  await _runBasicBinaryByEncode(basicBinary, oneMbOfInteger, 1); // Warmup.
+  printer.addResult(
+    description: 'BasicMessageChannel/BinaryCodec/Flutter->Host/1MBLargeEncode',
+    value:
+        await _runBasicBinaryByEncode(basicBinary, oneMbOfInteger, numMessages),
+    unit: 'µs',
+    name: 'platform_channel_basic_binary_2host_1mblargeencode',
   );
 
   resetChannel.send(true);
