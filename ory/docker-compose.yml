@@ -2,14 +2,14 @@ version: '3.9'
 
 x-kong-config: &kong-env
   KONG_DATABASE: postgres
-  KONG_PG_DATABASE: ${KONG_PG_DATABASE:-kong-micro-service-1}
+  KONG_PG_DATABASE: ${KONG_PG_DATABASE:-kong1}
   KONG_PG_HOST: 192.168.1.11
-  KONG_PG_USER: ${KONG_PG_USER:-kong}
+  KONG_PG_USER: ${KONG_PG_USER:-kong1}
   KONG_PG_PASSWORD_FILE: /run/secrets/kong_postgres_password
 
 secrets:
   kong_postgres_password:
-    file: ./KONG_POSTGRES_PASSWORD
+    file: ./kong_postgres_password
 
 volumes:
   kong_data: {}
@@ -61,4 +61,31 @@ services:
     volumes:
       - kong_prefix_vol:${KONG_PREFIX:-/var/run/kong}
       - kong_tmp_vol:/tmp
-      - ./config:/opt/kong
+      - ./kongconfig:/opt/kong
+  
+  kratos-migrate:
+    image: "oryd/kratos:v0.11.1"
+    environment:
+      DSN: ${KRATOS_DSN}
+    volumes:
+      - type: bind
+        source: ./kratos
+        target: /etc/config/kratos
+    command: -c /etc/config/kratos/kratos.yml migrate sql -e --yes
+  
+  kratos:
+    image: "oryd/kratos:v0.11.1"
+    environment:
+      DSN: ${KRATOS_DSN}
+    volumes:
+      - type: bind
+        source: ./kratos
+        target: /etc/config/kratos
+    command: serve -c /etc/config/kratos/kratos.yml --dev --watch-courier
+
+  kratos-selfservice-ui-node:
+    image: "oryd/kratos-selfservice-ui-node:v0.12.6"
+    environment:
+      - KRATOS_PUBLIC_URL=${KRATOS_PUBLIC_URL}
+      - KRATOS_BROWSER_URL=${KRATOS_PUBLIC_URL}
+    restart: on-failure
