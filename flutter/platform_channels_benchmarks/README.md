@@ -8,9 +8,28 @@ Benchmark type of messages:
 - List of object
 - Convert the list of object into the binary bytes, then send the binary bytes
 
-```bash
+
+Run for testing device
+
+Run the android emulatar, then execute the following bash script
+```shell
+flutter test integration_test/app_test.dart
+```
+
+```shell
 flutter drive \
-    --driver=test_
+    --driver=test_driver/integration_test.dart \
+    --target=integration_test/app_test.dart \
+    -d linux
+```
+
+```shell
+chromedriver --port=4444
+
+flutter drive \
+  --driver=test_driver/integration_test.dart \
+  --target=integration_test/app_test.dart \
+  -d web-server
 ```
 
 
