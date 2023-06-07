@@ -13,6 +13,10 @@ Run for testing device
 
 Run the android emulatar, then execute the following bash script
 ```shell
+flutter run --profile
+```
+OR
+```shell
 flutter test integration_test/app_test.dart
 ```
 
@@ -35,11 +39,11 @@ flutter drive \
 
 Result
 ```
-I/flutter (10956): BasicMessageChannel/StandardMessageCodec/Flutter->Host/Small: 0.4 µs
-I/flutter (10956): BasicMessageChannel/StandardMessageCodec/Flutter->Host/Large: 0.9 µs
-I/flutter (10956): BasicMessageChannel/BinaryCodec/Flutter->Host/Large: 0.1 µs
-I/flutter (10956): BasicMessageChannel/BinaryCodec/Flutter->Host/LargeEncode: 0.2 µs
-I/flutter (10956): BasicMessageChannel/StandardMessageCodec/Flutter->Host/1MB: 69.8 µs
-I/flutter (10956): BasicMessageChannel/BinaryCodec/Flutter->Host/1MBLargeEncode: 31.8 µs
-I/flutter (10956): BasicMessageChannel/BinaryCodec/Flutter->Host/1MB: 0.6 µs
+I/flutter ( 5623): BasicMessageChannel/StandardMessageCodec/Flutter->Host/Small: 0.5 µs
+I/flutter ( 5623): BasicMessageChannel/StandardMessageCodec/Flutter->Host/Large: 0.9 µs
+I/flutter ( 5623): BasicMessageChannel/StandardMessageCodec/Flutter->Host/1MB: 73.1 µs
+I/flutter ( 5623): BasicMessageChannel/BinaryCodec/Flutter->Host/Large: 0.1 µs
+I/flutter ( 5623): BasicMessageChannel/BinaryCodec/Flutter->Host/LargeEncode: 0.2 µs
+I/flutter ( 5623): BasicMessageChannel/BinaryCodec/Flutter->Host/1MBLargeEncode: 34.2 µs
+I/flutter ( 5623): BasicMessageChannel/BinaryCodec/Flutter->Host/1MB: 0.8 µs
 ```
