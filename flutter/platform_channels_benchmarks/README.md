@@ -8,6 +8,11 @@ Benchmark type of messages:
 - List of object
 - Convert the list of object into the binary bytes, then send the binary bytes
 
+```bash
+flutter drive \
+    --driver=test_
+```
+
 
 Result
 ```
