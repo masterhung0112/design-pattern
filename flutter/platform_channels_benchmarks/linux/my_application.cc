@@ -19,6 +19,7 @@ G_DEFINE_TYPE(MyApplication, my_application, GTK_TYPE_APPLICATION)
 FlBasicMessageChannel *resetStandardMessageChannel;
 FlBasicMessageChannel *standardMessageChannel;
 FlBasicMessageChannel *binaryMessageChannel;
+FlValue *byteBufferCache; 
 
 void resetBasicMessageChannelSetMessageHandler(
     FlBasicMessageChannel* channel,
@@ -26,7 +27,12 @@ void resetBasicMessageChannelSetMessageHandler(
     FlBasicMessageChannelResponseHandle* response_handle,
     gpointer user_data)
 {
-
+  if (byteBufferCache != NULL) {
+    fl_value_unref(byteBufferCache);
+    byteBufferCache = NULL;
+  }
+  g_autoptr(GError) error = NULL;
+  fl_basic_message_channel_respond(channel, response_handle, NULL, &error);
 }
 
 void standardBasicMessageChannelSetMessageHandler(
@@ -35,7 +41,9 @@ void standardBasicMessageChannelSetMessageHandler(
     FlBasicMessageChannelResponseHandle* response_handle,
     gpointer user_data)
 {
-  fl_basic_message_channel_respond(channel, response_handle, message, NULL);
+  // printf("standardBasicMessageChannelSetMessageHandler called\n");
+  g_autoptr(GError) error = NULL;
+  fl_basic_message_channel_respond(channel, response_handle, message, &error);
 }
 
 void binaryBasicMessageChannelSetMessageHandler(
@@ -44,7 +52,12 @@ void binaryBasicMessageChannelSetMessageHandler(
     FlBasicMessageChannelResponseHandle* response_handle,
     gpointer user_data)
 {
- 
+  g_autoptr(GError) error = NULL;
+  // printf("length: %lu\n", fl_value_get_length(message));
+  if (byteBufferCache == NULL) {
+    byteBufferCache = fl_value_new_uint8_list(fl_value_get_uint8_list(message), fl_value_get_length(message));
+  }
+  fl_basic_message_channel_respond(channel, response_handle, byteBufferCache, &error);
 }
 
 void registerPlatformChannel(FlView *view)
