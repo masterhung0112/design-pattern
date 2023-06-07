@@ -17,11 +17,14 @@ flutter run --profile
 ```
 OR
 ```shell
-flutter test integration_test/app_test.dart
+flutter drive --profile \
+    --driver=test_driver/integration_test.dart \
+    --target=integration_test/app_test.dart \
+    -d android
 ```
 
 ```shell
-flutter drive \
+flutter drive --profile \
     --driver=test_driver/integration_test.dart \
     --target=integration_test/app_test.dart \
     -d linux
@@ -30,7 +33,7 @@ flutter drive \
 ```shell
 chromedriver --port=4444
 
-flutter drive \
+flutter drive --profile \
   --driver=test_driver/integration_test.dart \
   --target=integration_test/app_test.dart \
   -d web-server
