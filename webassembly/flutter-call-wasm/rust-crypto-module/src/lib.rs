@@ -3,6 +3,7 @@ use rsa::{PaddingScheme, PublicKey, RsaPrivateKey, RsaPublicKey};
 
 use wasm_bindgen::prelude::*;
 
+#[wasm_bindgen]
 pub fn sign(data: String) -> Vec<u8> {
     let mut rng = OsRng;
     let bits = 2048;

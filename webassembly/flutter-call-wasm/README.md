@@ -15,5 +15,14 @@ Reference: https://gpalma.pt/blog/flutter-web-web-assembly/
 - Build
     `wasm-pack build -t web`
 
-# Create Rust project
+# Rust project
 - `cargo new rust-crypto-module`
+- Add the function implementation
+- Build: `wasm-pack build --target no-modules`
+
+# Dart project
+- `flutter create --platforms web flutterapp`
+- Copy the generated wasm and js into the flutter web
+    `cp rust-crypto-module/pkg/rust_crypto_module* flutterapp/web/pkg`
+- Add `<script src="pkg/rust_crypto_module.js" defer> </script>` in the index.html file
+- `flutter run -d chrome`
