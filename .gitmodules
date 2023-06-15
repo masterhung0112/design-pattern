@@ -4,3 +4,6 @@
 [submodule "protobuf"]
 	path = protobuf
 	url = https://github.com/protocolbuffers/protobuf.git
+[submodule "monorepo/rush/ts-code-demo"]
+	path = monorepo/rush/ts-code-demo
+	url = https://github.com/chengcyber/ts-code-demo.git
